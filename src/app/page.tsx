@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import React from "react";
 
 export default function Home() {
   const [content, setContent] = useState("");
   const [url, setUrl] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = await fetch("/api/createPaste", {
       method: "POST",
