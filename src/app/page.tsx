@@ -24,28 +24,39 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6">
-      <h1 className="text-3xl font-bold mb-4">Yashs PasteBin</h1>
-      
-      <form onSubmit={handleSubmit} className="w-full max-w-lg">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white p-6">
+      <h1 className="text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">
+        Yash&apos;s PasteBin
+      </h1>
+
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-lg bg-gray-900/80 backdrop-blur-md p-6 rounded-lg shadow-lg border border-gray-700"
+      >
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Enter your paste here..."
           rows={6}
-          className="w-full border p-2 rounded"
+          className="w-full bg-gray-800 text-white border border-gray-700 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
           type="submit"
-          className="mt-2 bg-blue-500 text-white px-4 py-2 rounded w-full"
+          className="mt-4 w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold py-2 rounded-md shadow-md hover:opacity-90 transition-opacity"
         >
           Create Paste
         </button>
       </form>
 
       {url && (
-        <p className="mt-4 text-lg">
-          ✅ Paste Created: <a href={url} className="text-blue-600 underline">{url}</a>
+        <p className="mt-6 text-lg">
+          ✅ Paste Created:{" "}
+          <a
+            href={url}
+            className="text-blue-400 underline hover:text-blue-300 transition-colors"
+          >
+            {url}
+          </a>
         </p>
       )}
     </div>
