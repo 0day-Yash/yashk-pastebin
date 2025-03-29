@@ -1,6 +1,21 @@
+import { useState } from "react";
 import Image from "next/image";
 
 export default function Home() {
+  const [content, setContent] = useState("");
+  const [url, setUrl] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await fetch("/api/createPaste", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ content }),
+    });
+    const data = await response.json();
+    setUrl(`/paste/${data.id}`);
+  };
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
@@ -49,6 +64,29 @@ export default function Home() {
           >
             Read our docs
           </a>
+        </div>
+
+        <div className="p-4">
+          <form onSubmit={handleSubmit}>
+            <textarea
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              placeholder="Enter your paste here..."
+              rows={6}
+              className="w-full border p-2 rounded"
+            ></textarea>
+            <button
+              type="submit"
+              className="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              Create Paste
+            </button>
+          </form>
+          {url && (
+            <p>
+              View your paste: <a href={url}>{url}</a>
+            </p>
+          )}
         </div>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
