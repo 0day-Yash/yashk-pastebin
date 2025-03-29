@@ -8,18 +8,24 @@ export default function Home() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const response = await fetch("/api/createPaste", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content }),
-    });
-    const data = await response.json();
-    setUrl(`/paste/${data.id}`);
+    console.log("Form submitted with content:", content);
+    try {
+      const response = await fetch("/api/createPaste", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content }),
+      });
+      const data = await response.json();
+      console.log("API response:", data);
+      setUrl(`/paste/${data.id}`);
+    } catch (error) {
+      console.error("Error creating paste:", error);
+    }
   };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6">
-      <h1 className="text-3xl font-bold mb-4">PasteBin Clone</h1>
+      <h1 className="text-3xl font-bold mb-4">Yash's PasteBin</h1>
       
       <form onSubmit={handleSubmit} className="w-full max-w-lg">
         <textarea
