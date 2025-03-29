@@ -11,11 +11,14 @@ export default async function handler(req, res) {
       const pastesCollection = db.collection("pastes");
 
       const pasteId = nanoid(6);
-      await pastesCollection.insertOne({ id: pasteId, content, createdAt: new Date() });
+      await pastesCollection.insertOne(
+        { id: pasteId, content, createdAt: new Date() },
+        { maxTimeMS: 5000 } // Timeout after 5 seconds
+      );
 
       res.status(200).json({ id: pasteId });
     } catch (error) {
-      console.error(error);
+      console.error("Error creating paste:", error);
       res.status(500).json({ message: "Failed to create paste" });
     }
   } else {
